@@ -22,7 +22,13 @@ def download_pdb_file(pdb_id, download_dir=None, rename_to_pdb=True):
     Returns:
         str: Path to the downloaded file or None if download failed.
     """
+    pdb_id = pdb_id.lower()  # Ensure PDB ID is in lowercase
+
     try:
+        # If no download directory specified, use the current directory
+        if download_dir is None:
+            download_dir = os.getcwd()
+
         # Create PDBList object
         pdbl = PDBList()
         
@@ -30,10 +36,6 @@ def download_pdb_file(pdb_id, download_dir=None, rename_to_pdb=True):
         if not os.path.exists(os.path.join(download_dir, "PDB_files_list.txt")):
             with open(os.path.join(download_dir, "PDB_files_list.txt"), "w") as f:
                 f.write("PDB files list:\n")
-
-        # If no download directory specified, use the current directory
-        if download_dir is None:
-            download_dir = os.getcwd()
         
         logging.info(f"Downloading PDB file for ID: {pdb_id}")
         logging.info(f"File will be saved to: {download_dir}")
