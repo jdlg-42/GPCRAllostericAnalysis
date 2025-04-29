@@ -3,9 +3,12 @@ Repositorio de toda la parte relacionada al código sobre el TFG.
 
 Módulos necesarios:
 
-numpy
-biopython
-Py3DMol
+- biopython
+- igraph
+- matplotlib
+- numpy
+- Py3DMol
+
 
 Scripts:
 - pdb_downloader.py: está dentro de un directorio PDB_files. Permite descargar archivos .pdb directamente a dicho directorio para trabajar localmente con las estructuras.
