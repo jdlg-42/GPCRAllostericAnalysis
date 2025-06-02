@@ -7,8 +7,8 @@ from allosteric_analyzer import AllosticHeadAnalyzer
 from scipy.stats import ttest_1samp
 
 def main():
-    # Adenosine A2A receptor 3VG9
-    sequence = "MGQPGNGSAFLLAPNGSHAPDHDVTQERDEVWVVGMGIVMSLIVLAIVFGNVLVITAIAKFERLQTVTNYFITSLACADLVMGLAVVPFGAAHILMKMWTFGNFWCEFWTSIDVLCVTASIETLCVIAVDRYFAITSPFKYQSLLTKNKARVIILMVWIVSGLTSFLPIQMHWYRATHQEAINCYANETCCDFFTNQAYAIASSIVSFYVPLVIMVFVYSRVFQEAKRQLQKIDKSEGRFHVQNLSQVEQDGRTGHGLRRSSKFCLKEHKALKTLGIIMGTFTLCWLPFFIVNIVHVIQDNLIRKEVYILLNWIGYVNSGFNPLIYCRSPDFRIAFQELLCLRRSSLKAYGNGYSSNGNTGEQSGYHVEQEKENKLLCEDLPGTEDFVGHQGTVPSDNIDSQGRNCSTNDSLL"
+    # Beta-2 adrenergic receptor 2R4R
+    sequence = "MGQPGNGSAFLLAPNRSHAPDHDVTQQRDEVWVVGMGIVMSLIVLAIVFGNVLVITAIAKFERLQTVTNYFITSLACADLVMGLAVVPFGAAHILMKMWTFGNFWCEFWTSIDVLCVTASIETLCVIAVDRYFAITSPFKYQSLLTKNKARVIILMVWIVSGLTSFLPIQMHWYRATHQEAINCYANETCCDFFTNQAYAIASSIVSFYVPLVIMVFVYSRVFQEAKRQLQKIDKSEGRFHVQNLSQVEQDGRTGHGLRRSSKFCLKEHKALKTLGIIMGTFTLCWLPFFIVNIVHVIQDNLIRKEVYILLNWIGYVNSGFNPLIYCRSPDFRIAFQELLCLRRSSLKAYGNGYSSNGNTGEQSG"
     allosteric_res = [203, 204, 207, 293, 296, 308] # Ser203,  Ser204, Ser207,  Asn293,  His296 ,Tyr308
     orthosteric_res = [] 
     pathway_res = []
@@ -112,17 +112,17 @@ def main():
         sensitive_snr_values = [snr_values_tensor[l][h] for (l, h) in sensitive_heads]
         sensitive_p_values = [p_values_tensor[l][h] for (l, h) in sensitive_heads]  # No usados en visualización, pero pueden pasarse si se desea filtrar por p más adelante
 
-        analyzer.visualize_average_head_attention(
-            attention_maps=attention_maps,
-            impact_scores=sensitive_impact_scores,
-            snr_values=sensitive_snr_values,
-            allosteric_sites=allosteric_res,
-            orthosteric_sites=orthosteric_res,
-            pathway_sites=pathway_res,
-            sequence=sequence,
-            p_values=sensitive_p_values,
-            cmap='viridis',
-        )
+        # analyzer.visualize_average_head_attention(
+        #     attention_maps=attention_maps,
+        #     impact_scores=sensitive_impact_scores,
+        #     snr_values=sensitive_snr_values,
+        #     allosteric_sites=allosteric_res,
+        #     orthosteric_sites=orthosteric_res,
+        #     pathway_sites=pathway_res,
+        #     sequence=sequence,
+        #     p_values=sensitive_p_values,
+        #     cmap='viridis',
+        # )
 
     # Save sensitive head data
     head_info = {
