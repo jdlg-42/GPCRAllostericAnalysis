@@ -1,4 +1,5 @@
-# TFG: " " Juandiego López González 2025
+# TFG: " " 
+Juandiego López González 2025
 En este repositorio se pueden encontrar los scripts de Python utilizados para realizar los estudios del TFG " ". En este repositorio se podrán encontrar herramientas para estudiar la sensibilidad alostérica y realizar estudios de atención sobre residuos alostérico empleando el modelo de lenguaje de proteínas ESM-2 en los GPCR A2A de adenosina y beta-2 adrenérgico. También contiene herramientas para construir y analizar los grafos de contacto de las proteínas para obtener residuos con valores de alta centralidad de intermediación, y empleando métodos para usar los datos de atención en dicho análisis. 
 
 ## Instalación
@@ -93,4 +94,12 @@ Receptor beta-2 adrenérgico:
 python analyze_adrb2.py
 ```
 
+# Referencias
 
+1. Dong et al. (2024). Allo-Allo: Data-efficient prediction of allosteric sites. bioRxiv. DOI: pending
+2. ESM2 Model: https://github.com/facebookresearch/esm
+3. Allosteric Analyzer: https://github.com/amoyag/allostery_heads
+
+# Autor y fecha de publicación
+
+Juandiego López González. Junio 2025
