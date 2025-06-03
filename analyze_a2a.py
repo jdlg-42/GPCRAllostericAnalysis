@@ -99,16 +99,16 @@ def main():
     attention_values = list(accumulated_attention.values())
     percentile_85 = np.percentile(attention_values, 85)
 
-    csv_file = os.path.join(output_dir, "attention_to_allosteric_sites_a2a.csv")
+    csv_file = os.path.join(output_dir, "accumulated_attention_a2a.csv")
     with open(csv_file, mode='w', newline='') as csvfile:
         writer = csv.writer(csvfile)
-        writer.writerow(["From (Query Position)", "Residue", "Accumulated Avg Attention", "Top 15%?"])
+        writer.writerow(["Residue", "Position", "AvgAccAtt"])
 
         for i in sorted(accumulated_attention.keys()):
-            residue = sequence[i - 1]
             avg_attention = accumulated_attention[i]
-            is_top = "YES" if avg_attention > percentile_85 else "NO"
-            writer.writerow([i, residue, avg_attention, is_top])
+            if avg_attention > percentile_85:
+                residue = sequence[i - 1]
+                writer.writerow([residue, i, avg_attention])
 
     print(f"Saved accumulated average attention values with Top 15% label to {csv_file}")
 
