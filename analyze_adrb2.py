@@ -96,7 +96,7 @@ def main():
 
     # Calcular el percentil 85
     attention_values = list(accumulated_attention.values())
-    percentile_85 = np.percentile(attention_values, 85)
+    percentile_85 = np.percentile(attention_values, 95)
 
     csv_file = os.path.join(output_dir, "accumulated_attention_adrb2.csv")
     with open(csv_file, mode='w', newline='') as csvfile:

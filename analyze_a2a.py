@@ -97,7 +97,7 @@ def main():
 
     # Calcular el percentil 85
     attention_values = list(accumulated_attention.values())
-    percentile_85 = np.percentile(attention_values, 85)
+    percentile_85 = np.percentile(attention_values, 95)
 
     csv_file = os.path.join(output_dir, "accumulated_attention_a2a.csv")
     with open(csv_file, mode='w', newline='') as csvfile:
@@ -110,7 +110,7 @@ def main():
                 residue = sequence[i - 1]
                 writer.writerow([residue, i, avg_attention])
 
-    print(f"Saved accumulated average attention values with Top 15% label to {csv_file}")
+    print(f"Saved accumulated average attention values to {csv_file}")
 
     # Visualize each selected head
  # === NEW: Visualize mean of attention maps across sensitive heads ===
