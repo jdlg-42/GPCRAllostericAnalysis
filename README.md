@@ -1,13 +1,14 @@
-# TFG: " " 
-Juandiego López González 2025
-En este repositorio se pueden encontrar los scripts de Python utilizados para realizar los estudios del TFG " ". En este repositorio se podrán encontrar herramientas para estudiar la sensibilidad alostérica y realizar estudios de atención sobre residuos alostérico empleando el modelo de lenguaje de proteínas ESM-2 en los GPCR A2A de adenosina y beta-2 adrenérgico. También contiene herramientas para construir y analizar los grafos de contacto de las proteínas para obtener residuos con valores de alta centralidad de intermediación, y empleando métodos para usar los datos de atención en dicho análisis. 
+# Identificación computacional de residuos clave en la señalización alostérica de GPCR
+*Juandiego López González 2025*
+
+En este repositorio se pueden encontrar los scripts de Python utilizados para realizar los estudios del TFG "Identificación computacional de residuos clave en la señalización alostérica de GPCR". En este repositorio se podrán encontrar herramientas para estudiar la sensibilidad alostérica y realizar estudios de atención sobre residuos alostéricos empleando el modelo de lenguaje de proteínas ESM-2 en las secuencias de los GPCR A2A de adenosina y beta-2 adrenérgico. También contiene herramientas para construir y analizar los grafos de contacto de los aminoácidos para obtener residuos con valores de alta centralidad de intermediación. El objetivo es detectar residuos clave en la comunicación alostérica en los GPCR.
 
 ## Instalación
 
 ```bash
 # Clonar el repositorio
-git clone https://github.com/yourusername/TFG.git
-cd allostery_heads
+git clone https://github.com/yourusername/GPCRAllostericAnalysis.git
+cd GPCRAllostericAnalysis
 
 # Crear entorno de conda, necesario para usar ESM-2
 conda create -n esm_env python=3.11 
@@ -24,8 +25,6 @@ print(f"PyTorch version: {torch.__version__}")
 print(f"Is MPS (M1) available? {torch.backends.mps.is_available()}")
 print(f"Is CUDA available? {torch.cuda.is_available()}")  # Should be False on M1
 ```
-
-
 
 Módulos necesarios:
 
