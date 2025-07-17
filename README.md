@@ -1,8 +1,7 @@
-# Computational Identification of Key Residues in GPCR Allosteric Signaling
-
+# Computer-based identification of key residues in GPCR allosteric signaling
 *Juandiego López González 2025*
 
-This repository contains the Python scripts used for the Bachelor's Thesis **"Computational Identification of Key Residues in GPCR Allosteric Signaling."** It provides tools to study allosteric sensitivity and perform attention-based analyses on allosteric residues using the protein language model **ESM-2** on the sequences of the **A2A adenosine receptor** and the **beta-2 adrenergic receptor**. It also includes tools to build and analyze amino acid contact graphs to identify residues with high betweenness centrality values. The goal is to detect key residues in allosteric communication in GPCRs.
+This repository contains the Python scripts used for the Bachelor's Thesis **"omputer-based identification of key residues in GPCR allosteric signaling"** It provides tools to study allosteric sensitivity and perform attention-based analyses on allosteric residues using the protein language model **ESM-2** on the sequences of the **A2A adenosine receptor** and the **beta-2 adrenergic receptor**. It also includes tools to build and analyze amino acid contact graphs to identify residues with high betweenness centrality values. The goal is to detect key residues in allosteric communication in GPCRs.
 
 ## Installation
 
