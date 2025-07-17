@@ -1,23 +1,25 @@
-# Identificación computacional de residuos clave en la señalización alostérica de GPCR
+# Computational Identification of Key Residues in GPCR Allosteric Signaling
+
 *Juandiego López González 2025*
 
-En este repositorio se pueden encontrar los scripts de Python utilizados para realizar los estudios del TFG "Identificación computacional de residuos clave en la señalización alostérica de GPCR". En este repositorio se podrán encontrar herramientas para estudiar la sensibilidad alostérica y realizar estudios de atención sobre residuos alostéricos empleando el modelo de lenguaje de proteínas ESM-2 en las secuencias de los GPCR A2A de adenosina y beta-2 adrenérgico. También contiene herramientas para construir y analizar los grafos de contacto de los aminoácidos para obtener residuos con valores de alta centralidad de intermediación. El objetivo es detectar residuos clave en la comunicación alostérica en los GPCR.
+This repository contains the Python scripts used for the Bachelor's Thesis **"Computational Identification of Key Residues in GPCR Allosteric Signaling."** It provides tools to study allosteric sensitivity and perform attention-based analyses on allosteric residues using the protein language model **ESM-2** on the sequences of the **A2A adenosine receptor** and the **beta-2 adrenergic receptor**. It also includes tools to build and analyze amino acid contact graphs to identify residues with high betweenness centrality values. The goal is to detect key residues in allosteric communication in GPCRs.
 
-## Instalación
+## Installation
 
 ```bash
-# Clonar el repositorio
+# Clone the repository
 git clone https://github.com/yourusername/GPCRAllostericAnalysis.git
 cd GPCRAllostericAnalysis
 
-# Crear entorno de conda, necesario para usar ESM-2
-conda create -n esm_env python=3.11 
+# Create conda environment (required for ESM-2)
+conda create -n esm_env python=3.11
 conda activate esm-env
 
-# Instalar las dependencias necesarias
+# Install dependencies
 pip install torch fair-esm numpy pandas tqdm scipy biopython igraph py3dMol
 ```
-Para usuarios de Mac se requiere de PyTorch con soporte para MPS en vez de CUDA
+
+For Mac users, PyTorch with **MPS** support (instead of CUDA) is required:
 
 ```python
 import torch
@@ -26,79 +28,92 @@ print(f"Is MPS (M1) available? {torch.backends.mps.is_available()}")
 print(f"Is CUDA available? {torch.cuda.is_available()}")  # Should be False on M1
 ```
 
-Módulos necesarios:
+Required modules:
 
-- Pytorch
-- scipy
-- biopython
-- igraph
-- matplotlib
-- numpy
-- Py3DMol
-- Seaborn
+* PyTorch
+* scipy
+* biopython
+* igraph
+* matplotlib
+* numpy
+* Py3DMol
+* Seaborn
 
 Scripts:
-- allosteric_analyzer.py: código que define la clase de analizador alostérico. Permite estudiar los datos de atención alostérica a partir de una secuencia dada
-- analyze_a2a.py: script de análisis del receptor A2A de adenosina.
-- analyze_adrb2.py: script de análisis del receptor beta-2 adrenérgico.
-- pdb_downloader.py: está dentro de un directorio PDB_files. Permite descargar archivos .pdb directamente a dicho directorio para trabajar localmente con las estructuras.
-- protein_visualization.ipynb: es un Jupyter Notebook que permite realizar la visualización en 3D de la estructura de la proteína y resaltar los residuos de interés que componen el sitio de unión al efector y los que se unen a la proteína G.
-- distancias.py: script para construir grafos de contacto de proteínas y obtener los datos de la centralidad. 
 
-# Identificación de pares de residuos de alta atención hacia el sitio alostérico usando ESM-2
+* **allosteric\_analyzer.py**: Defines the allosteric analyzer class. Enables the study of allosteric attention data from a given sequence.
+* **analyze\_a2a.py**: Analysis script for the A2A adenosine receptor.
+* **analyze\_adrb2.py**: Analysis script for the beta-2 adrenergic receptor.
+* **pdb\_downloader.py**: Located inside the `PDB_files` directory. Allows downloading `.pdb` files directly into this directory for local structure analysis.
+* **protein\_visualization.ipynb**: Jupyter Notebook for 3D visualization of protein structures and highlighting key residues involved in the effector binding site and G-protein binding.
+* **distancias.py**: Script for building protein contact graphs and computing centrality data.
 
-Se utilizan los scripts: allosteric_analyzer.py, para definir la clase del analizador, y analyze_a2a.py y analyze_adrb2 para aplicar el análisis a los GPCR A2A de adenosina y beta-2 adrenérgico. Para cada uno se determinan las cabezas de atención con alto impacto alostérico y se calcula la atención promedio acumulada (cálculo de la atención global que los residuos de la secuencia le prestan a los residuos del sitio ortostérico).
+---
 
-## Obtención de las cabezas de atención con alto impacto alostérico
+# Identifying Pairs of Residues with High Attention Toward the Allosteric Site Using ESM-2
 
-El artículo de Dong et al., 2024 establece métodos cuantitativos para realizar el cálculo de la sensibilidad alostérica de las cabezas de atención. Esto se realiza a partir de la comparación de la atención global hacia la secuencia (actividad total) y la atención específica que las cabezas del modelo prestan a los residuos del sitio alostérico dentro de la secuencia (actividad alostérica). Con ambos valores se puede calcular la proporción de la actividad total que se debe a la actividad alostérica, lo que se conoce como impacto alostérico. 
+The scripts **allosteric\_analyzer.py**, **analyze\_a2a.py**, and **analyze\_adrb2.py** are used to apply the analysis to the A2A adenosine and beta-2 adrenergic GPCRs. For each receptor, the attention heads with the highest allosteric impact are identified, and the **cumulative average attention** is calculated (a global measure of the attention that sequence residues give to the orthosteric site residues).
 
-## Cálculo de la atención hacia los residuos del sitio alostérico
+## Identifying Attention Heads with High Allosteric Impact
 
-Se utiliza una métrica llamada atención promedio acumulada.
+The paper by **Dong et al., 2024** proposes quantitative methods to compute the allosteric sensitivity of attention heads. This involves comparing the **global attention** toward the sequence (total activity) and the **specific attention** the model heads give to the allosteric site residues within the sequence (allosteric activity). From these values, the proportion of total activity attributable to allosteric activity can be calculated, known as the **allosteric impact**.
 
-## Uso
+## Calculating Attention Toward Allosteric Site Residues
 
-### Análisis básico
+A metric called **cumulative average attention** is used.
+
+---
+
+## Usage
+
+### Basic Analysis
 
 ```python
 from allosteric_analyzer import AllosticHeadAnalyzer
 
-# Generar una instancia del analizador
+# Create an analyzer instance
 analyzer = AllosticHeadAnalyzer(threshold=0.3)
 
-# Analizar la secuencia de una proteína
-sequence = "MPIMGSSVYITVELAIAVLAILGNVLVCWAV..."  # La secuencia de la proteína de interés
-allosteric_sites = [85, 89, 246, 253]  # Los residuos del sitio alostérico 
+# Analyze a protein sequence
+sequence = "MPIMGSSVYITVELAIAVLAILGNVLVCWAV..."  # Protein sequence
+allosteric_sites = [85, 89, 246, 253]  # Allosteric site residues
 
-# Guardar los resultados en una variable
+# Store results
 results = analyzer.analyze_protein(sequence, allosteric_sites)
 
-# Acceder a los valores obtenidos
+# Access obtained values
 impact_scores = results["impacts"].squeeze().tolist()
 snr_values = results["snrs"].squeeze().tolist()
 ```
 
-### Ejecutar el resultado en los GPCR
+### Run Analysis on GPCRs
 
-Receptor A2A de adenosina:
+A2A adenosine receptor:
 
 ```bash
 python analyze_a2a.py
 ```
 
-Receptor beta-2 adrenérgico:
+Beta-2 adrenergic receptor:
 
 ```bash
 python analyze_adrb2.py
 ```
 
-# Referencias
+---
 
-1. Dong et al. (2024). Allo-Allo: Data-efficient prediction of allosteric sites. bioRxiv. DOI: pending
-2. ESM2 Model: https://github.com/facebookresearch/esm
-3. Allosteric Analyzer: https://github.com/amoyag/allostery_heads
+# References
 
-# Autor y fecha de publicación
+1. Dong et al. (2024). *Allo-Allo: Data-efficient prediction of allosteric sites*. bioRxiv. DOI: pending
+2. ESM-2 Model: [https://github.com/facebookresearch/esm](https://github.com/facebookresearch/esm)
+3. Allosteric Analyzer: [https://github.com/amoyag/allostery\_heads](https://github.com/amoyag/allostery_heads)
 
-Juandiego López González. Junio 2025
+---
+
+# Author and Publication Date
+
+**Juandiego López González. June 2025**
+
+---
+
+Universidad de Málaga.
