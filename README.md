@@ -59,7 +59,7 @@ The paper by **Dong et al., 2024** proposes quantitative methods to compute the 
 
 ## Calculating Attention Toward Allosteric Site Residues
 
-A metric called **cumulative average attention** is used.
+A metric called **acumulative average attention** is used.
 
 ---
 
