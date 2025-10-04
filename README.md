@@ -38,7 +38,7 @@ Required modules:
 * Py3DMol
 * Seaborn
 
-Scripts:
+Scripts & Notebooks:
 
 * **allosteric\_analyzer.py**: Defines the allosteric analyzer class. Enables the study of allosteric attention data from a given sequence.
 * **analyze\_a2a.py**: Analysis script for the A2A adenosine receptor.
